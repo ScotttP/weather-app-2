@@ -4,7 +4,7 @@ export default class UserInput extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            value:'',
+            value: 'New York'
         };
         this.handleChange = this.handleChange.bind(this);
     }

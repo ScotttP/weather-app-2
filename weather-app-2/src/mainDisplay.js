@@ -6,14 +6,13 @@ export default class MainDisplay extends React.Component {
         
         return(
             <div>
-            <h1>City:</h1>
-            
-            <p>Temperature:</p>
-            <p>Description:</p>
-            <p>Feels Like:</p>
-            <p>Humidity:</p>
-            <p>Wind Direction:</p>
-            <p>Wind Speed:</p>
+            <h1>City: <strong>{this.props.weather.city}</strong></h1>
+            <p>Temperature: <strong>{this.props.weather.temp}</strong></p>
+            <p>Description: <strong>{this.props.weather.description}</strong></p>
+            <p>Feels Like: <strong>{this.props.weather.feelsLike}</strong></p>
+            <p>Humidity: <strong>{this.props.weather.humidity}</strong></p>
+            <p>Wind Direction: <strong>{this.props.weather.windDirection}</strong></p>
+            <p>Wind Speed: <strong>{this.props.weather.windSpeed}</strong></p>
              
             </div>
         )
