@@ -1,18 +1,15 @@
 import React from 'react';
 import './App.css';
+import KEY from './keys.env'
 
-import UserInput from './input'
+import UserInput from './userInput'
 import MainDisplay from './mainDisplay'
-
-
-
 
 
 export default class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      value : '',
       data : ''
     }
     this.getWeatherData = this.getWeatherData.bind(this);
@@ -20,12 +17,13 @@ export default class App extends React.Component{
    async getWeatherData (userInput) {
      
     try {
-        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${userInput}&APPID=`,{mode: 'cors'});
+      console.log( userInput) //logs the value of the form
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userInput}&APPID=${KEY}`,{mode: 'cors'});
         const weatherData = await response.json();
         this.setState({data : weatherData})
         console.log(weatherData)
     } catch (error){
-        console.log(error) //display an error message
+        console.error(error) //display an error message
     }
   
     
