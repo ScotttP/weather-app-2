@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
 
-
-import UserInput from './userInput'
 import MainDisplay from './mainDisplay'
 
 
-//const APIKEY = `${process.env.REACT_APP_KEY}`
+const APIKEY = `${process.env.REACT_APP_KEY}`
 export default class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      userInput: 'New York',
       city: '',
       temp: '',
       description: '',
@@ -20,13 +19,14 @@ export default class App extends React.Component{
       windSpeed: ''
     }
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   
-   async componentDidMount (userInput) {
+   async componentDidMount () {
      
     try {
-        let userInput = "New York"
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userInput}&APPID=b388badf2ea8d6a1b0fc28f7d99e0ccc`,{mode: 'cors'});
+        console.log(this.state.userInput)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.userInput}&APPID=${APIKEY}`,{mode: 'cors'});
         const weatherData = await response.json();
         this.setState({
           city : weatherData.name,
@@ -45,10 +45,24 @@ export default class App extends React.Component{
     
   }
 
+  handleChange (event) {
+    this.setState({
+        userInput: event.target.value,
+    })
+    event.preventDefault()
+    
+}
+
   render() {
     return (
       <div className="App">
-      <UserInput handleSubmit = {() => this.componentDidMount()}/>
+        <div>
+              <form onSubmit={this.componentDidMount}>
+                  <input id ="userSearch" type="text" placeholder="City, Country"  onChange={this.handleChange}></input>
+                  <input id="search" type="submit" value="Search" />
+              </form>
+              
+        </div>
       <MainDisplay weather={this.state}/>
       </div>
     )
