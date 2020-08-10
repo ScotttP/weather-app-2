@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 
 import MainDisplay from './mainDisplay'
+import UserInput from './userInput'
 
 
-const APIKEY = `${process.env.REACT_APP_KEY}`
 export default class App extends React.Component{
   constructor(props){
     super(props)
@@ -17,52 +17,57 @@ export default class App extends React.Component{
       humidity: '',
       windDirection: '',
       windSpeed: ''
+      
     }
-    this.componentDidMount = this.componentDidMount.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
-   async componentDidMount () {
-     
+
+  componentDidMount(){
+    this.getWeatherData()
+  }
+
+  async getWeatherData () {
     try {
-        console.log(this.state.userInput)
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.userInput}&APPID=${APIKEY}`,{mode: 'cors'});
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.userInput}&APPID=b388badf2ea8d6a1b0fc28f7d99e0ccc`,{mode: 'cors'});
         const weatherData = await response.json();
+        console.log(weatherData)
         this.setState({
           city : weatherData.name,
-          temp: weatherData.main.temp,
+          temp : weatherData.main.temp,
           description: weatherData.weather[0].description,
           feelsLike: weatherData.main.feels_like,
           humidity: weatherData.main.humidity,
           windDirection: weatherData.wind.deg,
           windSpeed: weatherData.wind.speed,
+          
         })
+        console.log(this.state.data)
         
     } catch (error){
         console.error(error) //display an error message
     }
-  
-    
   }
 
-  handleChange (event) {
-    this.setState({
-        userInput: event.target.value,
-    })
-    event.preventDefault()
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.getWeatherData()
     
-}
+  }
+  handleChange = (e) => {
+    this.setState({
+        userInput: e.target.value,
+    })
+    e.preventDefault()
+    
+  }
+  
 
   render() {
     return (
       <div className="App">
-        <div>
-              <form onSubmit={this.componentDidMount}>
-                  <input id ="userSearch" type="text" placeholder="City, Country"  onChange={this.handleChange}></input>
-                  <input id="search" type="submit" value="Search" />
-              </form>
-              
-        </div>
+      <UserInput click={this.handleSubmit} change={this.handleChange} />
       <MainDisplay weather={this.state}/>
       </div>
     )
