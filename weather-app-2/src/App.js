@@ -18,7 +18,8 @@ export default class App extends React.Component{
       feelsLike: '',
       humidity: '',
       windDirection: '',
-      windSpeed: ''
+      windSpeed: '',
+      error: ''
       
     }
 
@@ -35,7 +36,6 @@ export default class App extends React.Component{
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.userInput}&APPID=b388badf2ea8d6a1b0fc28f7d99e0ccc`,{mode: 'cors'});
         const weatherData = await response.json();
-        console.log(weatherData.weather[0].icon)
         this.setState({
           city : weatherData.name,
           icon: weatherData.weather[0].icon,
@@ -46,10 +46,11 @@ export default class App extends React.Component{
           humidity: weatherData.main.humidity,
           windDirection: weatherData.wind.deg,
           windSpeed: weatherData.wind.speed,
-          
+          error : ''
         })  
     } catch (error){
-        console.error(error) //display an error message
+      alert('Could Not Find This City. Please enter a (City, Country)')
+
     }
   }
 
@@ -67,13 +68,17 @@ export default class App extends React.Component{
   }
   
 
-  render() {
-    return (
-      <div className="App">
-      <UserInput click={this.handleSubmit} change={this.handleChange} />
-      <MainDisplay weather={this.state}/>
-      </div>
-    )
+  render(error) {
+    
+      return (
+        <div className="App">
+        <UserInput click={this.handleSubmit} change={this.handleChange} />
+        <MainDisplay weather={this.state}/>
+        
+        </div>
+      )
+    
+    
     
   }
 }
