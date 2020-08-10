@@ -10,7 +10,9 @@ export default class App extends React.Component{
     super(props)
     this.state = {
       userInput: 'New York',
+      icon: '',
       city: '',
+      country: 'US',
       temp: '',
       description: '',
       feelsLike: '',
@@ -24,17 +26,20 @@ export default class App extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount(){ //calls the function on load
     this.getWeatherData()
+    
   }
 
   async getWeatherData () {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.userInput}&APPID=b388badf2ea8d6a1b0fc28f7d99e0ccc`,{mode: 'cors'});
         const weatherData = await response.json();
-        console.log(weatherData)
+        console.log(weatherData.weather[0].icon)
         this.setState({
           city : weatherData.name,
+          icon: weatherData.weather[0].icon,
+          country: weatherData.sys.country,
           temp : weatherData.main.temp,
           description: weatherData.weather[0].description,
           feelsLike: weatherData.main.feels_like,
@@ -42,9 +47,7 @@ export default class App extends React.Component{
           windDirection: weatherData.wind.deg,
           windSpeed: weatherData.wind.speed,
           
-        })
-        console.log(this.state.data)
-        
+        })  
     } catch (error){
         console.error(error) //display an error message
     }
