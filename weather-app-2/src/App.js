@@ -18,7 +18,6 @@ export default class App extends React.Component {
 			humidity: "",
 			windDirection: "",
 			windSpeed: "",
-			error: "",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -47,7 +46,6 @@ export default class App extends React.Component {
 				humidity: weatherData.main.humidity,
 				windDirection: weatherData.wind.deg,
 				windSpeed: weatherData.wind.speed,
-				error: "",
 			});
 		} catch (error) {
 			alert("Could Not Find This City. Please enter a (City, Country)");
