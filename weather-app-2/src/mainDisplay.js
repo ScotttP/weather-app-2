@@ -29,16 +29,16 @@ export default class MainDisplay extends React.Component {
             <div id="contentContainer">
                 <div id="content">
                     <div id="main">
-                        <h1 id="location">{this.props.weather.city}, {this.props.weather.country}</h1>
-                        <img id ="weatherIcon" src = {`http://openweathermap.org/img/wn/${this.props.weather.icon}@2x.png`} alt={this.props.weather.description + ' Icon'}/>
-                        <p><strong id="temp">{ <>{this.fahrenheit(this.props.weather.temp)}&deg;F </>}</strong></p>
-                        <p><strong id="weatherDescription">{this.props.weather.description}</strong></p>
+                        <h1 className="mainContent" id="location">{this.props.weather.city}, {this.props.weather.country}</h1>
+                        <img className="mainContent" id ="weatherIcon" src = {`http://openweathermap.org/img/wn/${this.props.weather.icon}@2x.png`} alt={this.props.weather.description + ' Icon'}/>
+                        <p id="temp"><strong >{ <>{this.fahrenheit(this.props.weather.temp)}&deg;F </>}</strong></p>
+                        <p id="weatherDescription"><strong >{this.props.weather.description}</strong></p>
                     </div>
                     <div id="details">
-                        <p id="feelsLike">Feels Like: <strong>{ <>{this.fahrenheit(this.props.weather.temp)}&deg;F</>} </strong></p>
-                        <p id="humidity">Humidity: <strong>{this.props.weather.humidity}%</strong></p>
-                        <p id="windDirection">Wind Direction: <strong>{ <>{this.direction(this.props.weather.windDirection)}</> }</strong></p>
-                        <p id="windSpeed">Wind Speed: <strong>{ <>{this.mph(this.props.weather.windSpeed)} MPH</>}</strong></p>
+                        <p className="detailContent" id="feelsLike">Feels Like: <strong>{ <>{this.fahrenheit(this.props.weather.temp)}&deg;F</>} </strong></p>
+                        <p className="detailContent" id="humidity">Humidity: <strong>{this.props.weather.humidity}%</strong></p>
+                        <p className="detailContent" id="windDirection">Wind Direction: <strong>{ <>{this.direction(this.props.weather.windDirection)}</> }</strong></p>
+                        <p className="detailContent" id="windSpeed">Wind Speed: <strong>{ <>{this.mph(this.props.weather.windSpeed)} MPH</>}</strong></p>
                     </div>
 
                 </div>
